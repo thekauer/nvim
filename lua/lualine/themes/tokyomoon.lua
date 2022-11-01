@@ -46,13 +46,13 @@ return {
 
     visual = {
         a = {
-            bg = colors.magenta,
+            bg = colors.cyan,
             fg = colors.black,
             gui = 'bold'
         },
         b = {
             bg = colors.fg_gutter,
-            fg = colors.magenta,
+            fg = colors.cyan,
             gui = 'bold'
         }
     },
