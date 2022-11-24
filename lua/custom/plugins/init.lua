@@ -21,12 +21,31 @@ return {
             require "custom.plugins.configs.tokyonight"
         end
     },
-    -- ["~whynothugo/lsp_lines.nvim"] = {
-    --     as = "lsp_lines",
-    --     config = function()
-    --         require("lsp_lines").setup()
-    --     end
-    -- },
+  ["jose-elias-alvarez/null-ls.nvim"] = {
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    config = function()
+      require("custom.plugins.configs.null-ls")
+    end
+  },
+  ["ggandor/lightspeed.nvim"] = {}, 
+  ["https://git.sr.ht/~whynothugo/lsp_lines.nvim"] = {
+    as = "lsp_lines",
+    config = function()
+      require("lsp_lines").setup()
+      vim.keymap.set(
+        "",
+        "<Leader>l",
+        require("lsp_lines").toggle,
+        { desc = "Toggle lsp_lines" }
+      )
+      vim.diagnostic.config({
+        virtual_text = false,
+      })
+    end
+  },
 
     -- Deletes
     ["NvChad/ui"] = false,

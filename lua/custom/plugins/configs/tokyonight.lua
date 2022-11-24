@@ -1,5 +1,9 @@
 require("tokyonight").setup({
     transparent = true,
+    styles = {
+      sidebars = "transparent",
+      floats = "transparent",
+    },
 
     on_colors = function(colors)
         -- colors.green = "#2df4c0"
@@ -63,4 +67,9 @@ vim.api.nvim_set_hl(0, "GitSignsDelete", {
     guibg = NONE
 })
 
+
+vim.g.tokyonight_transparent = true
+vim.g.tokyonight_transparent_sidebar = true
+
 vim.cmd [[colorscheme tokyonight]]
+vim.cmd([[highlight clear CursorLine]])

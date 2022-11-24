@@ -1,3 +1,20 @@
+local status, nvim_lsp = pcall(require, "lspconfig")
+if (not status) then return end
+
+vim.lsp.set_log_level("debug")
+
+local augroup_format = vim.api.nvim_create_augroup("Format", { clear = true })
+local enable_format_on_save = function(_, bufnr)
+  vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup_format,
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.buf.format({ bufnr = bufnr })
+    end,
+  })
+end
+
 local on_attach = function(client, bufnr)
     -- NOTE: Remember that lua is a real programming language, and as such it is possible
     -- to define small helper and utility functions so you don't have to repeat yourself
@@ -50,7 +67,10 @@ local on_attach = function(client, bufnr)
     })
 end
 
-require('lspconfig').sumneko_lua.setup {
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+
+nvim_lsp.sumneko_lua.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -74,3 +94,25 @@ require('lspconfig').sumneko_lua.setup {
         }
     }
 }
+
+nvim_lsp.tsserver.setup {
+  on_attach = on_attach,
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  root_dir = function() return vim.loop.cwd() end,
+  cmd = { "typescript-language-server", "--stdio" },
+  capabilities = capabilities
+}
+
+nvim_lsp.tailwindcss.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+  underline = true,
+  update_in_insert = false,
+  virtual_text = { spacing = 4, prefix = "●" },
+  severity_sort = true,
+}
+)
