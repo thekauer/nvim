@@ -6,12 +6,6 @@ end
 vim.keymap.set("i", "<C-b>", "<ESC>^i", "beginning of line")
 vim.keymap.set("i", "<C-e>", "<End>", "end of line")
 
--- navigate within insert mode
-vim.keymap.set("i", "<C-h>", "<Left>", "move left")
-vim.keymap.set("i", "<C-l>", "<Right>", "move right")
-vim.keymap.set("i", "<C-j>", "<Down>", "move down")
-vim.keymap.set("i", "<C-k>", "<Up>", "move up")
-
 vim.keymap.set("i", "jk", "<ESC>", "escape insert mode", {
     nowait = true
 })
