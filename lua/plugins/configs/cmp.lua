@@ -4,8 +4,6 @@ if not present then
     return
 end
 
--- require("base46").load_highlight "cmp"
-
 vim.o.completeopt = "menu,menuone,noselect"
 
 local function border(hl_name)
@@ -36,13 +34,6 @@ local options = {
         expand = function(args)
             require("luasnip").lsp_expand(args.body)
         end
-    },
-    formatting = {
-        -- format = function(_, vim_item)
-        --   local icons = require("nvchad_ui.icons").lspkind
-        --   vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
-        --   return vim_item
-        -- end,
     },
     mapping = {
         ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -86,8 +77,5 @@ local options = {
         name = "path"
     }}
 }
-
--- check for any override
-options = require("core.utils").load_override(options, "hrsh7th/nvim-cmp")
 
 cmp.setup(options)
