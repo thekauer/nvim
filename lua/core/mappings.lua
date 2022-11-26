@@ -114,3 +114,215 @@ vim.keymap.set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', {
     silent = true,
     desc = "paste"
 })
+
+-- telescope
+
+vim.keymap.set("n", "<leader>ff", "<cmd> Telescope find_files <CR>", {
+    desc = "find files"
+})
+vim.keymap.set("n", "<leader>fa", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", {
+    desc = "find all"
+})
+vim.keymap.set("n", "<leader>fw", "<cmd> Telescope live_grep <CR>", {
+    desc = "live grep"
+})
+vim.keymap.set("n", "<leader>fb", "<cmd> Telescope buffers <CR>", {
+    desc = "find buffers"
+})
+vim.keymap.set("n", "<leader>fh", "<cmd> Telescope help_tags <CR>", {
+    desc = "help page"
+})
+vim.keymap.set("n", "<leader>fo", "<cmd> Telescope oldfiles <CR>", {
+    desc = "find oldfiles"
+})
+vim.keymap.set("n", "<leader>ks", "<cmd> Telescope keymaps <CR>", {
+    desc = "show keys"
+})
+
+vim.keymap.set("n", "<leader>cm", "<cmd> Telescope git_commits <CR>", {
+    desc = "git commits"
+})
+vim.keymap.set("n", "<leader>gt", "<cmd> Telescope git_status <CR>", {
+    desc = "git status"
+})
+
+vim.keymap.set("n", "<leader>pt", "<cmd> Telescope terms <CR>", {
+    desc = "pick hidden term"
+})
+
+-- gitsigns
+
+vim.keymap.set("n", "]c", function()
+    if vim.wo.diff then
+        return "]c"
+    end
+    vim.schedule(function()
+        require("gitsigns").next_hunk()
+    end)
+    return "<Ignore>"
+end, {
+    desc = "Jump to next hunk",
+    expr = true
+})
+
+vim.keymap.set("n", "[c", function()
+    if vim.wo.diff then
+        return "[c"
+    end
+    vim.schedule(function()
+        require("gitsigns").prev_hunk()
+    end)
+    return "<Ignore>"
+end, {
+    desc = "Jump to prev hunk",
+    expr = true
+})
+
+vim.keymap.set("n", "<leader>rh", function()
+    require("gitsigns").reset_hunk()
+end, {
+    desc = "Reset hunk"
+})
+
+vim.keymap.set("n", "<leader>ph", function()
+    require("gitsigns").preview_hunk()
+end, {
+    desc = "Preview hunk"
+})
+
+vim.keymap.set("n", "<leader>gb", function()
+    package.loaded.gitsigns.blame_line()
+end, {
+    desc = "Blame line"
+})
+
+vim.keymap.set("n", "<leader>td", function()
+    require("gitsigns").toggle_deleted()
+end, {
+    desc = "Toggle deleted"
+})
+
+-- lspconfig
+
+vim.keymap.set('n', 'gD', function()
+    vim.lsp.buf.declaration()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', 'gd', function()
+    vim.lsp.buf.definition()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', 'K', function()
+    vim.lsp.buf.hover()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', 'gi', function()
+    vim.lsp.buf.implementation()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '<leader>ls', function()
+    vim.lsp.buf.signature_help()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '<leader>D', function()
+    vim.lsp.buf.type_definition()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '<leader>ca', function()
+    vim.lsp.buf.code_action()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', 'gr', function()
+    vim.lsp.buf.references()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '<leader>f', function()
+    vim.diagnostic.open_float()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '[d', function()
+    vim.diagnostic.goto_prev()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', 'd]', function()
+    vim.diagnostic.goto_next()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '<leader>q', function()
+    vim.diagnostic.setloclist()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '<leader>fm', function()
+    vim.lsp.buf.format {
+        async = true
+    }
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '<leader>wa', function()
+    vim.lsp.buf.add_workspace_folder()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '<leader>wr', function()
+    vim.lsp.buf.remove_workspace_folder()
+end, {
+    silent = true,
+    noremap = true
+})
+
+vim.keymap.set('n', '<leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, {
+    silent = true,
+    noremap = true
+})
+
+-- nvimtree
+
+vim.keymap.set("n", "<C-n>", "<cmd> NvimTreeToggle <CR>", {
+    desc = "toggle nvimtree"
+})
+vim.keymap.set("n", "<leader>e", "<cmd> NvimTreeFocus <CR>", {
+    desc = "focus nvimtree"
+})

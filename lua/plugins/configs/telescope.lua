@@ -58,39 +58,6 @@ local options = {
 
 telescope.setup(options)
 
-vim.keymap.set("n", "<leader>ff", "<cmd> Telescope find_files <CR>", {
-    desc = "find files"
-})
-vim.keymap.set("n", "<leader>fa", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", {
-    desc = "find all"
-})
-vim.keymap.set("n", "<leader>fw", "<cmd> Telescope live_grep <CR>", {
-    desc = "live grep"
-})
-vim.keymap.set("n", "<leader>fb", "<cmd> Telescope buffers <CR>", {
-    desc = "find buffers"
-})
-vim.keymap.set("n", "<leader>fh", "<cmd> Telescope help_tags <CR>", {
-    desc = "help page"
-})
-vim.keymap.set("n", "<leader>fo", "<cmd> Telescope oldfiles <CR>", {
-    desc = "find oldfiles"
-})
-vim.keymap.set("n", "<leader>ks", "<cmd> Telescope keymaps <CR>", {
-    desc = "show keys"
-})
-
-vim.keymap.set("n", "<leader>cm", "<cmd> Telescope git_commits <CR>", {
-    desc = "git commits"
-})
-vim.keymap.set("n", "<leader>gt", "<cmd> Telescope git_status <CR>", {
-    desc = "git status"
-})
-
-vim.keymap.set("n", "<leader>pt", "<cmd> Telescope terms <CR>", {
-    desc = "pick hidden term"
-})
-
 -- -- load extensions
 pcall(function()
     for _, ext in ipairs(options.extensions_list) do

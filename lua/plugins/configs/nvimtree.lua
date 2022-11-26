@@ -81,11 +81,4 @@ local options = {
     }
 }
 
-vim.keymap.set("n", "<C-n>", "<cmd> NvimTreeToggle <CR>", {
-    desc = "toggle nvimtree"
-})
-vim.keymap.set("n", "<leader>e", "<cmd> NvimTreeFocus <CR>", {
-    desc = "focus nvimtree"
-})
-
 nvimtree.setup(options)

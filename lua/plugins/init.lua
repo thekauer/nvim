@@ -196,6 +196,7 @@ local plugins = function(use)
             })
         end
     }
+    use 'nvim-treesitter/nvim-treesitter-context'
 end
 
 local present, packer = pcall(require, "packer")
