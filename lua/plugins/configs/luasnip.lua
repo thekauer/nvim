@@ -9,7 +9,6 @@ local options = {
     updateevents = "TextChanged,TextChangedI"
 }
 
-options = load_override(options, "L3MON4D3/LuaSnip")
 luasnip.config.set_config(options)
 require("luasnip.loaders.from_vscode").lazy_load {
     paths = vim.g.luasnippets_path or ""
