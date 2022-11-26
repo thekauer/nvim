@@ -76,7 +76,7 @@ vim.keymap.set("n", "<leader>fh", "<cmd> Telescope help_tags <CR>", {
 vim.keymap.set("n", "<leader>fo", "<cmd> Telescope oldfiles <CR>", {
     desc = "find oldfiles"
 })
-vim.keymap.set("n", "<leader>tk", "<cmd> Telescope keymaps <CR>", {
+vim.keymap.set("n", "<leader>ks", "<cmd> Telescope keymaps <CR>", {
     desc = "show keys"
 })
 
