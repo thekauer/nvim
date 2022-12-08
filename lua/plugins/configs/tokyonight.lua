@@ -38,6 +38,13 @@ require("tokyonight").setup({
             bg = c.bg_dark,
             fg = c.bg_dark
         }
+
+        hl.LineNr = {
+            fg = c.dark5
+        }
+        hl.CursorLineNr = {
+            fg = "#d1d3e0"
+        }
     end
 })
 require('lualine').setup {
