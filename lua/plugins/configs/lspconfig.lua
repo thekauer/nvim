@@ -105,6 +105,7 @@ nvim_lsp.sumneko_lua.setup {
 
 nvim_lsp.tsserver.setup {
     on_attach = on_attach,
+    detached = false,
     filetypes = {"typescript", "typescriptreact", "typescript.tsx"},
     root_dir = function()
         return vim.loop.cwd()
@@ -114,6 +115,21 @@ nvim_lsp.tsserver.setup {
 }
 
 nvim_lsp.tailwindcss.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
+nvim_lsp.rust_analyzer.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
+nvim_lsp.gopls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
+nvim_lsp.pyright.setup {
     on_attach = on_attach,
     capabilities = capabilities
 }
