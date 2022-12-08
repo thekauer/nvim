@@ -121,7 +121,18 @@ nvim_lsp.tailwindcss.setup {
 
 nvim_lsp.rust_analyzer.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    settings = {
+       ['rust-analyzer'] = {
+           checkOnSave = {
+               allFeatures = true,
+               overrideCommand = {
+                   'cargo', 'clippy', '--workspace', '--message-format=json',
+                   '--all-targets', '--all-features'
+               }
+           }
+       }
+    }
 }
 
 nvim_lsp.gopls.setup {
