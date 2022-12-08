@@ -195,6 +195,13 @@ local plugins = function(use)
         end
     }
     use 'nvim-treesitter/nvim-treesitter-context'
+    use {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("todo-comments").setup() 
+      end
+    }
 end
 
 local present, packer = pcall(require, "packer")
