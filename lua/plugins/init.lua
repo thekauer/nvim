@@ -1,17 +1,11 @@
 local plugins = function(use)
     use {
-        "wbthomason/packer.nvim",
-        cmd = require("core.lazy_load").packer_cmds,
-        config = function()
-            require "plugins"
-        end
-    }
-    use {
         "nvim-lua/plenary.nvim",
         module = "plenary"
     }
 
     use {"lewis6991/impatient.nvim"}
+    use 'wbthomason/packer.nvim'
 
     use {
         "nvim-treesitter/nvim-treesitter",
@@ -33,7 +27,7 @@ local plugins = function(use)
             require("core.lazy_load").gitsigns()
         end,
         config = function()
-            require("plugins.configs.gitsigns").gitsigns()
+            require "plugins.configs.gitsigns"
         end
     }
 
@@ -58,7 +52,7 @@ local plugins = function(use)
         wants = "friendly-snippets",
         after = "nvim-cmp",
         config = function()
-            require("plugins.configs.luasnip").luasnip()
+            require "plugins.configs.luasnip"
         end
     }
     use {
@@ -85,7 +79,7 @@ local plugins = function(use)
     -- -- lsp stuff
     use {
         "williamboman/mason.nvim",
-        cmd = require("core.lazy_load").mason_cmds,
+        requires = 'williamboman/mason-lspconfig.nvim',
         config = function()
             require "plugins.configs.mason"
         end
@@ -97,6 +91,10 @@ local plugins = function(use)
         setup = function()
             require("core.lazy_load").on_file_open "nvim-lspconfig"
         end,
+        requires = {
+          'williamboman/mason.nvim',
+          'williamboman/mason-lspconfig.nvim',
+        },
         config = function()
             require "plugins.configs.lspconfig"
         end
@@ -132,7 +130,7 @@ local plugins = function(use)
         "windwp/nvim-autopairs",
         after = "nvim-cmp",
         config = function()
-            require("plugins.configs.autopairs").autopairs()
+            require "plugins.configs.autopairs"
         end
     }
 

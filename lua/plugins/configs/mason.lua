@@ -3,16 +3,15 @@ if not status_ok then
   return
 end
 
+mason.setup()
+
 local status_ok_1, mason_lspconfig = pcall(require, "mason-lspconfig")
 if not status_ok_1 then
   return
 end
 
-
-mason.setup()
-
 mason_lspconfig.setup {
-  ensure_installed = {"sumneko_lua","typescript-language-server","prettierd","gopls","tailwind-language-server"}
+  ensure_installed = {"rust_analyzer","tsserver","gopls","tailwindcss", "pyright","sumneko_lua"}
 
 }
 
