@@ -139,10 +139,10 @@ vim.keymap.set("n", "<leader>ks", "<cmd> Telescope keymaps <CR>", {
     desc = "show keys"
 })
 
-vim.keymap.set("n", "<leader>cm", "<cmd> Telescope git_commits <CR>", {
+vim.keymap.set("n", "<leader>gc", "<cmd> Telescope git_commits <CR>", {
     desc = "git commits"
 })
-vim.keymap.set("n", "<leader>gt", "<cmd> Telescope git_status <CR>", {
+vim.keymap.set("n", "<leader>gs", "<cmd> Telescope git_status <CR>", {
     desc = "git status"
 })
 
