@@ -202,6 +202,14 @@ local plugins = function(use)
         require("todo-comments").setup() 
       end
     }
+    use {
+      "akinsho/toggleterm.nvim", 
+      tag = '*', 
+      config = function()
+        require "plugins.configs.toggleterm"
+      end
+    }
+    use {'nyoom-engineering/oxocarbon.nvim'}
 end
 
 local present, packer = pcall(require, "packer")
