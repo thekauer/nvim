@@ -199,7 +199,16 @@ local plugins = function(use)
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
       config = function()
-        require("todo-comments").setup() 
+        require("todo-comments").setup()
+      end
+    }
+    use {
+      'akinsho/bufferline.nvim',
+      tag = "v3.*",
+      requires = 'nvim-tree/nvim-web-devicons',
+      config = function()
+        vim.opt.termguicolors = true
+        require("bufferline").setup{}
       end
     }
     use {
