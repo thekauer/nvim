@@ -53,14 +53,12 @@ local options = {
         }
     },
 
-    extensions_list = {"themes", "terms"}
+    pickers = {
+      colorscheme = {
+        enable_preview = true
+      } 
+    }
+
 }
 
 telescope.setup(options)
-
--- -- load extensions
-pcall(function()
-    for _, ext in ipairs(options.extensions_list) do
-        telescope.load_extension(ext)
-    end
-end)

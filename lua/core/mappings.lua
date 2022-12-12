@@ -146,8 +146,8 @@ vim.keymap.set("n", "<leader>gs", "<cmd> Telescope git_status <CR>", {
     desc = "git status"
 })
 
-vim.keymap.set("n", "<leader>pt", "<cmd> Telescope terms <CR>", {
-    desc = "pick hidden term"
+vim.keymap.set("n", "<leader>th", "<cmd> Telescope colorscheme <CR>", {
+    desc = "theme"
 })
 
 -- gitsigns
