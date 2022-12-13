@@ -208,7 +208,11 @@ local plugins = function(use)
       requires = 'nvim-tree/nvim-web-devicons',
       config = function()
         vim.opt.termguicolors = true
-        require("bufferline").setup{}
+        require("bufferline").setup{
+          options = {
+          mode = "tabs",
+        }
+      }
       end
     }
     use {
