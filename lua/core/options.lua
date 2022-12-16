@@ -35,6 +35,7 @@ opt.relativenumber = true
 -- disable nvim intro
 opt.shortmess:append "sI"
 
+opt.scrolloff = 8
 opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true
