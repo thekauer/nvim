@@ -7,8 +7,10 @@ local powershell_options = {
   shellxquote = "",
 }
 
-for option, value in pairs(powershell_options) do
-  vim.opt[option] = value
+if(vim.fn.has('win32') > 0 or vim.fn.has('win32unix') > 0) then
+  for option, value in pairs(powershell_options) do
+    vim.opt[option] = value
+  end
 end
 
 require("toggleterm").setup({
