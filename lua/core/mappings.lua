@@ -37,6 +37,9 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", {
 vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", {
     desc = "save file"
 })
+vim.keymap.set("i", "<C-s>", "<ESC><cmd> w <CR>", {
+    desc = "save file"
+})
 
 -- Copy all
 vim.keymap.set("n", "<C-c>", "<cmd> %y+ <CR>", {
