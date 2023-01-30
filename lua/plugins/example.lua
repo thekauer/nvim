@@ -18,19 +18,60 @@ return {
     },
   },
 
-  {"github/copilot.vim"},
+  {
+    "onsails/lspkind.nvim",
+    config = function()
+      local lspkind = require("lspkind")
+      lspkind.init({
+        symbol_map = {
+          Copilot = "",
+        },
+      })
 
+      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {bg ="#c9c9c9"})
+    end
+  },
+
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function ()
+      require("copilot_cmp").setup()
+    end
+  },
   -- override nvim-cmp and add cmp-emoji
   {
     "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-emoji" },
+    after = "lspkind-nvim",
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local cmp = require("cmp")
+      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "copilot" } }))
       opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
-    end,
+      opts.formatting = {format = require("lspkind").cmp_format({
+        mode = "symbol_text",
+        -- menu = ({
+        --   buffer = "[Buffer]",
+        --   nvim_lsp = "[LSP]",
+        --   luasnip = "[LuaSnip]",
+        --   nvim_lua = "[Lua]",
+        --   latex_symbols = "[Latex]",
+        -- })
+      })}
+    end
   },
-
   -- add tsserver and setup with typescript.nvim instead of lspconfig
   {
     "neovim/nvim-lspconfig",
@@ -124,6 +165,56 @@ return {
         "flake8",
       },
     },
+  },
+
+  -- first: disable default <tab> and <s-tab> behavior in LuaSnip
+  {
+    "L3MON4D3/LuaSnip",
+    keys = function()
+      return {}
+    end,
+  },
+  -- then: setup supertab in cmp
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-emoji",
+    },
+    ---@param opts cmp.ConfigSchema
+    opts = function(_, opts)
+      local has_words_before = function()
+        unpack = unpack or table.unpack
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+      end
+
+      local luasnip = require("luasnip")
+      local cmp = require("cmp")
+
+      opts.mapping = vim.tbl_extend("force", opts.mapping, {
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+        end, { "i", "s" }),
+        ["<Down>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        ["<Up>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+      })
+    end,
   },
 
 }
