@@ -193,7 +193,11 @@ return {
 
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
         ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() and has_words_before() then
             cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+          else
+            fallback()
+          end
         end, { "i", "s" }),
         ["<Down>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
