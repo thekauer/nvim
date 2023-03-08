@@ -14,3 +14,4 @@ local function map(mode, lhs, rhs, opts)
 end
 
 map("i", "jk", "<Esc>", { desc = "Quickly exit normal mode" })
+map("n", "WW", [[viw:<C-u>lua MiniSurround.add('visual')<CR>]], { desc = "surround word under cursor" })

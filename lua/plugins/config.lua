@@ -91,6 +91,7 @@ return {
       servers = {
         -- tsserver will be automatically installed with mason and loaded with lspconfig
         tsserver = {},
+        eslint = {}
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
@@ -100,6 +101,15 @@ return {
         tsserver = function(_, opts)
           require("typescript").setup({ server = opts })
           return true
+        end,
+        eslint = function()
+          require("lazyvim.util").on_attach(function(client)
+            if client.name == "eslint" then
+              client.server_capabilities.documentFormattingProvider = true
+            elseif client.name == "tsserver" then
+              client.server_capabilities.documentFormattingProvider = false
+            end
+          end)
         end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
@@ -166,6 +176,23 @@ return {
       },
     },
   },
+  {
+    "mason_null_ls",
+    opts = {
+	-- list of formatters & linters for mason to install
+      ensure_installed = {
+        "prettier", -- ts/js formatter
+        "stylua", -- lua formatter
+        "eslint_d", -- ts/js linter
+        "pylint", -- ts/js linter
+        "black",
+        "flake8",
+        "isort",
+      },
+	-- auto-install configured formatters & linters (with null-ls)
+      automatic_installation = true,
+    }
+  },
 
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
   {
@@ -194,7 +221,7 @@ return {
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() and has_words_before() then
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+            cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
           else
             fallback()
           end
@@ -260,5 +287,11 @@ return {
         return require('debugprint').debugprint({ above = true, variable = true })
       end, { expr = true, desc = "log variable under cursor, above the line" })
     end,
+  },
+  {
+    "mini.surround",
+    cmd = function ()
+      require('mini.surround').setup({})
+    end
   }
 }
