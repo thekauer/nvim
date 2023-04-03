@@ -177,7 +177,12 @@ return {
     },
   },
   {
-    "mason_null_ls",
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
     opts = {
 	-- list of formatters & linters for mason to install
       ensure_installed = {
