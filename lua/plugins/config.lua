@@ -50,16 +50,13 @@ return {
       require("copilot_cmp").setup()
     end
   },
-  -- override nvim-cmp and add cmp-emoji
   {
     "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
     after = "lspkind-nvim",
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local cmp = require("cmp")
       opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "copilot" } }))
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
       opts.formatting = {format = require("lspkind").cmp_format({
         mode = "symbol_text",
         -- menu = ({
@@ -132,8 +129,6 @@ return {
         "javascript",
         "json",
         "lua",
-        "markdown",
-        "markdown_inline",
         "python",
         "query",
         "regex",
@@ -209,9 +204,6 @@ return {
   -- then: setup supertab in cmp
   {
     "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-emoji",
-    },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local has_words_before = function()
