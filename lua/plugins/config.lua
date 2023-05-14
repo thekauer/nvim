@@ -88,7 +88,9 @@ return {
       servers = {
         -- tsserver will be automatically installed with mason and loaded with lspconfig
         tsserver = {},
-        eslint = {}
+        eslint = {},
+        svelte = {},
+        -- elixir = {},
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
@@ -108,8 +110,25 @@ return {
             end
           end)
         end,
-        -- Specify * to use this function as a fallback for any server
-        -- ["*"] = function(server, opts) end,
+        -- elixir = function()
+        --   local on_attach = function(client, bufnr)
+        --     local opts = { noremap=true, silent=true }
+        --
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cd', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+        --     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+        --   end
+        --
+        -- end
       },
     },
   },
@@ -134,8 +153,12 @@ return {
         "regex",
         "tsx",
         "typescript",
+        "svelte",
         "vim",
         "yaml",
+        "elixir",
+        "heex",
+        "eex"
       },
     },
   },
@@ -168,6 +191,8 @@ return {
         "shellcheck",
         "shfmt",
         "flake8",
+        "elixir-ls",
+        "efm"
       },
     },
   },
@@ -290,5 +315,34 @@ return {
     cmd = function ()
       require('mini.surround').setup({})
     end
-  }
+  },
+  {
+  "elixir-tools/elixir-tools.nvim",
+  ft = { "elixir", "eex", "heex", "surface" },
+  config = function()
+    local elixir = require("elixir")
+    local elixirls = require("elixir.elixirls")
+
+    elixir.setup {
+      cmd = {"/Users/andraskauer/.elixir-ls/release/language_server.sh"},
+      credo = {},
+      elixirls = {
+        enabled = true,
+        settings = elixirls.settings {
+          dialyzerEnabled = false,
+          enableTestLenses = false,
+        },
+        on_attach = function(client, bufnr)
+          -- whatever keybinds you want, see below for more suggestions
+          vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+          vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+          vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+        end,
+      }
+    }
+  end,
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+  },
+}
 }
