@@ -15,4 +15,4 @@ end
 
 map("i", "jk", "<Esc>", { desc = "Quickly exit normal mode" })
 map("n", "WW", [[viw:<C-u>lua MiniSurround.add('visual')<CR>]], { desc = "surround word under cursor" })
-map("n", "<leader>dab", ":%bd|e#|bd#<cr>", { desc = "delete all buffers except current one" })
+map("n", "<leader>dab", ":%bd|e#|bd#<cr>", { desc = "delete all buffers except current one" }) -- use <leader>bP insted
