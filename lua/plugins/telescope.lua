@@ -4,8 +4,15 @@ return {
     dependencies = {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
-      config = function()
+      config = function(_, opts)
         require("telescope").load_extension("fzf")
+        opts.defaults = {
+          preview = {
+            filesize_limit = 0.9999,
+            timeout = 250,
+          },
+
+        }
       end,
     },
     {
