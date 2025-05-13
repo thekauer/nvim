@@ -15,3 +15,10 @@ end
 
 map("i", "jk", "<Esc>", { desc = "Quickly exit normal mode" })
 map("n", "WW", [[viw:<C-u>lua require('mini.surround').add('visual')<CR>]], { desc = "surround word under cursor" })
+vim.keymap.set("n", "<leader>se", function()
+  Snacks.picker.explorer({
+    include = { "**/.env", "**/.env.*" },
+    exclude = { "**" },
+    tree = true,
+  })
+end, { desc = "Explore .env files" })
